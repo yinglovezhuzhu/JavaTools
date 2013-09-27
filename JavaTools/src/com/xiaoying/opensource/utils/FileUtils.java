@@ -33,22 +33,6 @@ public class FileUtils {
 	public static final int BUFFER_SIZE = 1024 * 1024 * 1;
 	
 	/**
-	 * Delete file(include not empty directory)
-	 * @param file
-	 */
-	public static void deleteFile(File file) {
-		if(file.exists()) {
-			if(file.isDirectory()) {
-				File [] files = file.listFiles();
-				for (File file2 : files) {
-					deleteFile(file2);
-				}
-			}
-			file.delete();
-		}
-	}
-	
-	/**
 	 * Get file size(include directory)
 	 * @param file
 	 * @return
@@ -92,24 +76,6 @@ public class FileUtils {
 	}
 	
 	/**
-	 * Copy files to destPath, can be a folder.
-	 * @param file
-	 * @param destPath
-	 * @throws IOException
-	 */
-	public static void copyFiles(File file, File destPath) throws IOException {
-		if(file.isDirectory()) {
-			File dest = new File(destPath, file.getName());
-			File [] files = file.listFiles();
-			for (File subFile : files) {
-				copyFiles(subFile, dest);
-			}
-		} else {
-			copyFile(file, destPath);
-		}
-	}
-	
-	/**
 	 * Copy a file to destPath. only file.
 	 * @param file
 	 * @param destPath
@@ -130,4 +96,39 @@ public class FileUtils {
 		fos.close();
 		fis.close();
 	}
+
+	/**
+	 * Copy files to destPath, can be a folder.
+	 * @param file
+	 * @param destPath
+	 * @throws IOException
+	 */
+	public static void copyFiles(File file, File destPath) throws IOException {
+		if(file.isDirectory()) {
+			File dest = new File(destPath, file.getName());
+			File [] files = file.listFiles();
+			for (File subFile : files) {
+				copyFiles(subFile, dest);
+			}
+		} else {
+			copyFile(file, destPath);
+		}
+	}
+	
+	/**
+	 * Delete file(include not empty directory)
+	 * @param file
+	 */
+	public static void deleteFile(File file) {
+		if(file.exists()) {
+			if(file.isDirectory()) {
+				File [] files = file.listFiles();
+				for (File file2 : files) {
+					deleteFile(file2);
+				}
+			}
+			file.delete();
+		}
+	}
+	
 }
