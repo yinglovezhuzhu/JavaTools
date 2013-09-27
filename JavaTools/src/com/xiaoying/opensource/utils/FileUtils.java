@@ -82,6 +82,9 @@ public class FileUtils {
 	 * @throws IOException
 	 */
 	public static void copyFile(File file, File destPath) throws IOException {
+		if(file.isDirectory()) {
+			return;
+		}
 		if(!destPath.exists()) {
 			destPath.mkdirs();
 		}
