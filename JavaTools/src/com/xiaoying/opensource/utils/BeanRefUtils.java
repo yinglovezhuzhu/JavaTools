@@ -38,8 +38,11 @@ public class BeanRefUtils {
 	 * @return Map
 	 */
 	public static Map<String, Object> getFieldValueMap(Object bean) {
-		Class<?> cls = bean.getClass();
 		Map<String, Object> valueMap = new HashMap<String, Object>();
+		if(bean == null) {
+			return valueMap;
+		}
+		Class<?> cls = bean.getClass();
 		Map<String, Field> fieldMap = getFields(cls);
 		Iterator<Entry<String, Field>> iterator = fieldMap.entrySet().iterator();
 		while(iterator.hasNext()) {
